@@ -15,5 +15,3 @@ script:
 - ./run docker-compose build test
 - ./run "docker-compose up test && echo Yeah"
 
-
-

@@ -1,0 +1,17 @@
+env:
+  DOCKER_COMPOSE_VERSION: 1.4.2
+
+before_install:
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+
+
+script:
+- ./run "docker version && docker info"
+- ./run docker run ubuntu /bin/echo hello world
+- wget https://gist.githubusercontent.com/moul/0f53ae391ae7d7116e24/raw/23307093546b6ae2f94208c188f5ce4fca2be996/docker-compose.yml
+- ./run docker-compose build test
+- ./run "docker-compose up test && echo Yeah"
+

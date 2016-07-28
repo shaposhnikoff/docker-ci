@@ -1,0 +1,40 @@
+env:
+  DOCKER_COMPOSE_VERSION: 1.4.2
+  sudo: required
+  dist: trusty
+
+before_install:
+# - sudo rm /usr/local/bin/docker-compose
+  - sudo apt-get update -y
+  - sudo apt-get install docker
+#  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+#  - chmod +x docker-compose
+#  - sudo mv docker-compose /usr/local/bin
+
+
+install:
+#  - sudo sh -c "wget -qO- https://get.docker.io/gpg | apt-key add -"
+#  - sudo sh -c "echo deb http://get.docker.io/ubuntu docker main > /etc/apt/sources.list.d/docker.list"
+#  - sudo apt-get update
+#  - sudo mkdir -p /var/lib/docker
+#  - echo exit 101 | sudo tee /usr/sbin/policy-rc.d
+#  - sudo chmod +x /usr/sbin/policy-rc.d
+#  - sudo apt-get install -y slirp lxc lxc-docker aufs-tools cgroup-lite
+#  - curl -sLo linux https://github.com/jpetazzo/sekexe/raw/master/uml
+#  - chmod +x linux
+
+before_script: true
+
+
+script:
+- ./run "docker version && docker info"
+- ./run docker run ubuntu /bin/echo hello world
+- wget https://gist.githubusercontent.com/moul/0f53ae391ae7d7116e24/raw/23307093546b6ae2f94208c188f5ce4fca2be996/docker-compose.yml
+- ./run docker-compose build test
+- ./run "docker-compose up test && echo Yeah"
+
+after_success:
+ - echo "success!"
+
+after_failure:
+ - echo "failure!!!"

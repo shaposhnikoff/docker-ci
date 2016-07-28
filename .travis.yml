@@ -1,5 +1,6 @@
 env:
   DOCKER_COMPOSE_VERSION: 1.4.2
+  dist: trusty
 
 before_install:
 # - sudo rm /usr/local/bin/docker-compose

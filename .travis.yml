@@ -14,16 +14,19 @@ before_install:
   - sudo mv docker-compose /usr/local/bin
 
 install:
-   - docker build -t jenkins -f nexus/Dockerfile .
+   - docker build -t nexus -f nexus/Dockerfile .
+   - docker build -t jenkins -f jenkins/Dockerfile .
+   - docker build -t sonar -f sonar/Dockerfile .
+
 #  - docker run -d -p 127.0.0.1:80:80 --name blog blog
 #  - /usr/local/bin/docker-compose up
 
 before_script:
-  - pip install -r requirements.txt
-  - pip install mock
-  - pip install requests
-  - pip install feedparser
+#  - pip install -r requirements.txt
+#  - pip install mock
+#  - pip install requests
+#  - pip install feedparser
 
 script:
-  - docker ps | grep -q blog
-  - python tests.py
+  - docker images
+ # - python tests.py
